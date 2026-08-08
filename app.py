@@ -280,18 +280,99 @@ button[kind="primary"]:hover {
     box-shadow: 0 6px 24px rgba(255,46,76,0.5) !important;
     color: #ffffff !important;
 }
-/* ── Custom HTML Sidebar Navigation ── */
+/* ── Sidebar Navigation Buttons Styling ── */
 section[data-testid="stSidebar"] {
     background: #0b0a0e !important;
     border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
+
 section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
-    padding: 0 !important;
+    padding-top: 24px !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
 }
-/* Hide the Streamlit sidebar padding & element spacing */
-section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > [data-testid="element-container"] {
-    margin: 0 !important;
-    padding: 0 !important;
+
+div[data-testid="stSidebar"] div.stButton > button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 16px !important;
+    padding: 16px 20px !important;
+    border-radius: 20px !important;
+    border: none !important;
+    border-left: 6px solid transparent !important;
+    background: transparent !important;
+    color: #9494a3 !important;
+    font-size: 1.05rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.01em !important;
+    width: 100% !important;
+    margin: 3px 0 !important;
+    text-align: left !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: none !important;
+    position: relative !important;
+}
+
+div[data-testid="stSidebar"] div.stButton > button:hover {
+    background: rgba(255, 255, 255, 0.04) !important;
+    color: #ffffff !important;
+    transform: none !important;
+}
+
+/* Active Nav Button */
+div[data-testid="stSidebar"] div.stButton > button[kind="primary"] {
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(18px) !important;
+    border-left: 6px solid #ff4d73 !important;
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+    border-top-right-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+    color: #ff4d73 !important;
+    font-weight: 600 !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 8px 30px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Vector SVG Icon injection for each button via ::before */
+div[data-testid="stSidebar"] div.stButton > button::before {
+    content: '' !important;
+    width: 22px !important;
+    height: 22px !important;
+    display: inline-block !important;
+    background-color: currentColor !important;
+    mask-size: contain !important;
+    mask-repeat: no-repeat !important;
+    mask-position: center !important;
+    -webkit-mask-size: contain !important;
+    -webkit-mask-repeat: no-repeat !important;
+    -webkit-mask-position: center !important;
+    flex-shrink: 0 !important;
+    transition: background-color 0.25s ease !important;
+}
+
+/* 1. Dashboard — Home Icon */
+div[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div.stButton:nth-of-type(1) > button::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpolyline points='9 22 9 12 15 12 15 22'/%3E%3C/svg%3E") !important;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpolyline points='9 22 9 12 15 12 15 22'/%3E%3C/svg%3E") !important;
+}
+
+/* 2. Analyse — BarChart Icon */
+div[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div.stButton:nth-of-type(2) > button::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='20' x2='18' y2='10'/%3E%3Cline x1='12' y1='20' x2='12' y2='4'/%3E%3Cline x1='6' y1='20' x2='6' y2='14'/%3E%3C/svg%3E") !important;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='20' x2='18' y2='10'/%3E%3Cline x1='12' y1='20' x2='12' y2='4'/%3E%3Cline x1='6' y1='20' x2='6' y2='14'/%3E%3C/svg%3E") !important;
+}
+
+/* 3. Generate — Sparkles Icon */
+div[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div.stButton:nth-of-type(3) > button::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z'/%3E%3C/svg%3E") !important;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z'/%3E%3C/svg%3E") !important;
+}
+
+/* 4. Automate — Rocket Icon */
+div[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div.stButton:nth-of-type(4) > button::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71.79-1.81.2-2.55L4.5 16.5z'/%3E%3Cpath d='M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.05 11a22.35 22.35 0 0 1-3.95 2z'/%3E%3C/svg%3E") !important;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71.79-1.81.2-2.55L4.5 16.5z'/%3E%3Cpath d='M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.05 11a22.35 22.35 0 0 1-3.95 2z'/%3E%3C/svg%3E") !important;
 }
 
 /* Status pill */
@@ -400,15 +481,11 @@ if st.session_state.signing_in:
         st.rerun()
 
 
-# ── Routing: read nav page from query params ─────────────────────────────────
-_PAGES = ["Dashboard", "Analyse", "Generate", "Automate"]
-nav_option = st.query_params.get("nav", "Dashboard")
-if nav_option not in _PAGES:
-    nav_option = "Dashboard"
-
+# ── Sidebar Session State ─────────────────────────────────────────────────────
+st.session_state.setdefault("nav_option", "Dashboard")
+nav_option = st.session_state["nav_option"]
 mock_mode = settings.mock_youtube_api
 
-# ── Custom HTML Sidebar ───────────────────────────────────────────────────────
 @st.cache_data(ttl=120, show_spinner=False)
 def _sidebar_channel_info(is_auth: bool, is_mock: bool) -> dict:
     if is_auth and not is_mock:
@@ -420,150 +497,66 @@ def _sidebar_channel_info(is_auth: bool, is_mock: bool) -> dict:
             pass
     return {"title": "CreatorPilot Lab", "thumbnail": "https://picsum.photos/100/100"}
 
-_ch    = _sidebar_channel_info(IS_AUTH, mock_mode)
-_thumb = _ch.get("thumbnail", "https://picsum.photos/100/100")
-_name  = _ch.get("title", "Channel")
-
-_NAV_ITEMS = [
-    ("Dashboard", "Dashboard", '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>'),
-    ("Analyse",   "Analyse",   '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>'),
-    ("Generate",  "Generate",  '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z"/>'),
-    ("Automate",  "Automate",  '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71.79-1.81.2-2.55L4.5 16.5z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.05 11a22.35 22.35 0 0 1-3.95 2z"/>'),
-]
-
-def _nav_item_html(key: str, label: str, icon_path: str, active: bool) -> str:
-    if active:
-        style = (
-            "display:flex;align-items:center;gap:16px;padding:16px 22px;"
-            "border-radius:0 20px 20px 0;"
-            "border-left:6px solid #ff4d73;"
-            "background:rgba(255,255,255,0.06);"
-            "backdrop-filter:blur(18px);"
-            "box-shadow:inset 0 0 0 1px rgba(255,255,255,0.05),0 8px 30px rgba(0,0,0,0.25);"
-            "margin:4px 0;cursor:pointer;text-decoration:none;"
-            "transition:all 0.25s cubic-bezier(0.4,0,0.2,1);"
-        )
-        icon_color = "#ff4d73"
-        text_style = "color:#ff4d73;font-size:1.05rem;font-weight:600;letter-spacing:0.01em;"
-    else:
-        style = (
-            "display:flex;align-items:center;gap:16px;padding:16px 22px;"
-            "border-radius:20px;border-left:6px solid transparent;"
-            "background:transparent;margin:4px 0;cursor:pointer;text-decoration:none;"
-            "transition:all 0.25s cubic-bezier(0.4,0,0.2,1);"
-        )
-        icon_color = "#9494a3"
-        text_style = "color:#9494a3;font-size:1.05rem;font-weight:500;letter-spacing:0.01em;"
-
-    return (
-        f'<a href="?nav={key}" style="{style}" '
-        f'onmouseover="this.style.background=\'rgba(255,255,255,0.04)\';'
-        f'this.querySelector(\'span\').style.color=\'#fff\';"'
-        f'onmouseout="this.style.background=\'{"rgba(255,255,255,0.06)" if active else "transparent"}\';'
-        f'this.querySelector(\'span\').style.color=\'{"#ff4d73" if active else "#9494a3"}\';">'
-        f'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{icon_color}" '
-        f'stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">'
-        f'{icon_path}</svg>'
-        f'<span style="{text_style}">{label}</span>'
-        f'</a>'
-    )
-
-_nav_html_items = "".join(
-    _nav_item_html(k, lbl, ico, nav_option == k)
-    for k, lbl, ico in _NAV_ITEMS
-)
-
-_disconnect_btn = ""
-if IS_AUTH:
-    _disconnect_btn = (
-        '<a href="?nav=_disconnect" style="display:flex;align-items:center;gap:12px;'
-        'padding:12px 22px;border-radius:14px;background:rgba(255,77,115,0.06);'
-        'border:1px solid rgba(255,77,115,0.15);text-decoration:none;margin-top:8px;'
-        'transition:all 0.2s ease;" '
-        'onmouseover="this.style.background=\'rgba(255,77,115,0.12)\'"'
-        'onmouseout="this.style.background=\'rgba(255,77,115,0.06)\'">'
-        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff4d73" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
-        '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>'
-        '<polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>'
-        '<span style="color:#ff4d73;font-size:0.9rem;font-weight:500;">Disconnect Channel</span>'
-        '</a>'
-    )
-
-_sidebar_html = f"""
-<div style="
-    font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
-    padding: 36px 16px 24px 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-">
-    <!-- Logo -->
-    <div style="display:flex;align-items:center;gap:12px;padding:0 22px;margin-bottom:40px;">
-        <div style="width:36px;height:36px;background:linear-gradient(135deg,#ff4d73,#c0112c);
-            border-radius:10px;display:flex;align-items:center;justify-content:center;
-            box-shadow:0 4px 14px rgba(255,77,115,0.4);flex-shrink:0;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff"
-                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-            </svg>
-        </div>
-        <div>
-            <div style="font-size:1.45rem;font-weight:800;letter-spacing:-0.03em;line-height:1.1;">
-                <span style="color:#fff;">Creator</span><span style="color:#ff4d73;">Pilot</span>
-            </div>
-            <div style="color:#71717a;font-size:0.74rem;font-weight:500;margin-top:2px;">Studio &amp; AI Copilot</div>
-        </div>
-    </div>
-
-    <!-- Nav label -->
-    <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
-        color:#71717a;margin-bottom:12px;padding-left:22px;">NAVIGATION</div>
-
-    <!-- Nav items -->
-    <div style="display:flex;flex-direction:column;gap:2px;">
-        {_nav_html_items}
-    </div>
-
-    <div style="flex:1;"></div>
-
-    <!-- Disconnect -->
-    <div style="padding:0 6px;">
-        {_disconnect_btn}
-    </div>
-
-    <!-- Channel card -->
-    <div style="margin-top:16px;padding:0 6px;">
-        <div style="display:flex;align-items:center;gap:12px;
-            background:rgba(255,255,255,0.03);backdrop-filter:blur(18px);
-            border:1px solid rgba(255,255,255,0.05);box-shadow:0 8px 30px rgba(0,0,0,0.25);
-            border-radius:16px;padding:12px 14px;">
-            <img src="{_thumb}" style="width:40px;height:40px;border-radius:50%;
-                border:2px solid #ff4d73;flex-shrink:0;object-fit:cover;">
-            <div style="overflow:hidden;">
-                <div style="font-weight:600;font-size:0.9rem;color:#fff;
-                    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{_name}</div>
-                <div style="color:#4ade80;font-size:0.75rem;font-weight:600;
-                    display:flex;align-items:center;gap:5px;margin-top:2px;">
-                    <span style="width:6px;height:6px;background:#4ade80;border-radius:50%;
-                        display:inline-block;box-shadow:0 0 6px #4ade80;"></span> Connected
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-"""
-
+# ── Sidebar Rendering ────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown(_sidebar_html, unsafe_allow_html=True)
+    # 1. Logo Header
+    st.markdown(
+        '<div style="display:flex;align-items:center;gap:12px;padding:8px 6px 20px 6px;margin-bottom:24px;border-bottom:1px solid rgba(255,255,255,0.06);">'
+        '<div style="width:36px;height:36px;background:linear-gradient(135deg,#ff4d73,#c0112c);border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(255,77,115,0.4);flex-shrink:0;">'
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'
+        '</div>'
+        '<div>'
+        '<div style="font-size:1.45rem;font-weight:800;letter-spacing:-0.03em;line-height:1.1;color:#fff;">Creator<span style="color:#ff4d73;">Pilot</span></div>'
+        '<div style="color:#71717a;font-size:0.74rem;font-weight:500;margin-top:2px;">Studio &amp; AI Copilot</div>'
+        '</div>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
 
-# Handle disconnect via query param
-if nav_option == "_disconnect":
-    if os.path.exists(settings.token_file):
-        os.remove(settings.token_file)
-    st.session_state.signing_in = False
-    st.session_state.auth_url = None
-    st.query_params.clear()
-    st.rerun()
+    # 2. Navigation Header Label
+    st.markdown(
+        '<div style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#71717a;margin-bottom:12px;padding-left:8px;">NAVIGATION</div>',
+        unsafe_allow_html=True,
+    )
+
+    # 3. Interactive Nav Buttons
+    for page in ["Dashboard", "Analyse", "Generate", "Automate"]:
+        is_active = (nav_option == page)
+        if st.button(
+            page,
+            key=f"sidebar_nav_{page}",
+            use_container_width=True,
+            type="primary" if is_active else "secondary",
+        ):
+            st.session_state["nav_option"] = page
+            st.rerun()
+
+    # 4. Disconnect Button (if authenticated)
+    if IS_AUTH:
+        st.write("")
+        if st.button("↩ Disconnect Channel", key="sidebar_nav_disconnect", use_container_width=True):
+            if os.path.exists(settings.token_file):
+                os.remove(settings.token_file)
+            st.session_state.signing_in = False
+            st.session_state.auth_url = None
+            st.rerun()
+
+    # 5. Channel Card at Bottom
+    _ch = _sidebar_channel_info(IS_AUTH, mock_mode)
+    _thumb = _ch.get("thumbnail", "https://picsum.photos/100/100")
+    _name  = _ch.get("title", "Channel")
+
+    st.markdown(
+        f'<div style="margin-top:28px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);">'
+        f'<div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.03);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.05);box-shadow:0 8px 30px rgba(0,0,0,0.25);border-radius:16px;padding:12px 14px;">'
+        f'<img src="{_thumb}" style="width:40px;height:40px;border-radius:50%;border:2px solid #ff4d73;flex-shrink:0;object-fit:cover;">'
+        f'<div style="overflow:hidden;">'
+        f'<div style="font-weight:600;font-size:0.9rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{_name}</div>'
+        f'<div style="color:#4ade80;font-size:0.75rem;font-weight:600;display:flex;align-items:center;gap:5px;margin-top:2px;">'
+        f'<span style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block;box-shadow:0 0 6px #4ade80;"></span> Connected'
+        f'</div></div></div></div>',
+        unsafe_allow_html=True,
+    )
 
 
 
