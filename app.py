@@ -280,42 +280,38 @@ button[kind="primary"]:hover {
     box-shadow: 0 6px 24px rgba(255,46,76,0.5) !important;
     color: #ffffff !important;
 }
-/* ── Sidebar Navigation Buttons Styling (Compact) ── */
+/* ── Sidebar Navigation Buttons Styling ── */
 section[data-testid="stSidebar"] {
     background: #0b0a0e !important;
     border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
-    width: 230px !important;
-    min-width: 230px !important;
-    max-width: 230px !important;
 }
 
 section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
-    padding-top: 14px !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
+    padding-top: 24px !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
 }
 
 div[data-testid="stSidebar"] div.stButton > button {
     display: flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    gap: 12px !important;
-    padding: 10px 14px !important;
-    border-radius: 12px !important;
+    gap: 16px !important;
+    padding: 16px 20px !important;
+    border-radius: 20px !important;
     border: none !important;
-    border-left: 4px solid transparent !important;
+    border-left: 6px solid transparent !important;
     background: transparent !important;
     color: #9494a3 !important;
-    font-size: 0.88rem !important;
+    font-size: 1.05rem !important;
     font-weight: 500 !important;
     letter-spacing: 0.01em !important;
     width: 100% !important;
-    margin: 2px 0 !important;
+    margin: 3px 0 !important;
     text-align: left !important;
-    transition: all 0.2s ease !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
     box-shadow: none !important;
     position: relative !important;
-    min-height: 40px !important;
 }
 
 div[data-testid="stSidebar"] div.stButton > button:hover {
@@ -327,22 +323,22 @@ div[data-testid="stSidebar"] div.stButton > button:hover {
 /* Active Nav Button */
 div[data-testid="stSidebar"] div.stButton > button[kind="primary"] {
     background: rgba(255, 255, 255, 0.06) !important;
-    backdrop-filter: blur(14px) !important;
-    border-left: 4px solid #ff4d73 !important;
+    backdrop-filter: blur(18px) !important;
+    border-left: 6px solid #ff4d73 !important;
     border-top-left-radius: 4px !important;
     border-bottom-left-radius: 4px !important;
-    border-top-right-radius: 12px !important;
-    border-bottom-right-radius: 12px !important;
+    border-top-right-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
     color: #ff4d73 !important;
     font-weight: 600 !important;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 8px 30px rgba(0, 0, 0, 0.25) !important;
 }
 
 /* Vector SVG Icon injection for each button via ::before */
 div[data-testid="stSidebar"] div.stButton > button::before {
     content: '' !important;
-    width: 17px !important;
-    height: 17px !important;
+    width: 22px !important;
+    height: 22px !important;
     display: inline-block !important;
     background-color: currentColor !important;
     mask-size: contain !important;
@@ -352,7 +348,7 @@ div[data-testid="stSidebar"] div.stButton > button::before {
     -webkit-mask-repeat: no-repeat !important;
     -webkit-mask-position: center !important;
     flex-shrink: 0 !important;
-    transition: background-color 0.2s ease !important;
+    transition: background-color 0.25s ease !important;
 }
 
 /* 1. Dashboard — Home Icon */
@@ -472,11 +468,8 @@ st.session_state.setdefault("signing_in", False)
 st.session_state.setdefault("auth_url", None)
 st.session_state.setdefault("script_title_preset", "")
 st.session_state.setdefault("video_inspector_idx", 0)
-st.session_state.setdefault("nav_option", "Dashboard")
 
 IS_AUTH = _is_authenticated()
-nav_option = st.session_state["nav_option"]
-mock_mode = settings.mock_youtube_api
 
 
 # ── Auto-Redirect Check ───────────────────────────────────────────────────────
@@ -487,6 +480,11 @@ if st.session_state.signing_in:
         st.session_state.auth_url = None
         st.rerun()
 
+
+# ── Sidebar Session State ─────────────────────────────────────────────────────
+st.session_state.setdefault("nav_option", "Dashboard")
+nav_option = st.session_state["nav_option"]
+mock_mode = settings.mock_youtube_api
 
 @st.cache_data(ttl=120, show_spinner=False)
 def _sidebar_channel_info(is_auth: bool, is_mock: bool) -> dict:
@@ -499,17 +497,17 @@ def _sidebar_channel_info(is_auth: bool, is_mock: bool) -> dict:
             pass
     return {"title": "CreatorPilot Lab", "thumbnail": "https://picsum.photos/100/100"}
 
-# ── Sidebar Rendering (Compact) ──────────────────────────────────────────────
+# ── Sidebar Rendering ────────────────────────────────────────────────────────
 with st.sidebar:
-    # 1. Logo Header (Scaled Down)
+    # 1. Logo Header
     st.markdown(
-        '<div style="display:flex;align-items:center;gap:10px;padding:4px 4px 14px 4px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.06);">'
-        '<div style="width:28px;height:28px;background:linear-gradient(135deg,#ff4d73,#c0112c);border-radius:8px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(255,77,115,0.35);flex-shrink:0;">'
-        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'
+        '<div style="display:flex;align-items:center;gap:12px;padding:8px 6px 20px 6px;margin-bottom:24px;border-bottom:1px solid rgba(255,255,255,0.06);">'
+        '<div style="width:36px;height:36px;background:linear-gradient(135deg,#ff4d73,#c0112c);border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(255,77,115,0.4);flex-shrink:0;">'
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'
         '</div>'
         '<div>'
-        '<div style="font-size:1.2rem;font-weight:800;letter-spacing:-0.03em;line-height:1.1;color:#fff;">Creator<span style="color:#ff4d73;">Pilot</span></div>'
-        '<div style="color:#71717a;font-size:0.68rem;font-weight:500;margin-top:1px;">Studio &amp; AI Copilot</div>'
+        '<div style="font-size:1.45rem;font-weight:800;letter-spacing:-0.03em;line-height:1.1;color:#fff;">Creator<span style="color:#ff4d73;">Pilot</span></div>'
+        '<div style="color:#71717a;font-size:0.74rem;font-weight:500;margin-top:2px;">Studio &amp; AI Copilot</div>'
         '</div>'
         '</div>',
         unsafe_allow_html=True,
@@ -517,11 +515,11 @@ with st.sidebar:
 
     # 2. Navigation Header Label
     st.markdown(
-        '<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#71717a;margin-bottom:8px;padding-left:4px;">NAVIGATION</div>',
+        '<div style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#71717a;margin-bottom:12px;padding-left:8px;">NAVIGATION</div>',
         unsafe_allow_html=True,
     )
 
-    # 3. Interactive Nav Buttons (Compact)
+    # 3. Interactive Nav Buttons
     for page in ["Dashboard", "Analyse", "Generate", "Automate"]:
         is_active = (nav_option == page)
         if st.button(
@@ -543,19 +541,19 @@ with st.sidebar:
             st.session_state.auth_url = None
             st.rerun()
 
-    # 5. Channel Card at Bottom (Scaled Down)
+    # 5. Channel Card at Bottom
     _ch = _sidebar_channel_info(IS_AUTH, mock_mode)
     _thumb = _ch.get("thumbnail", "https://picsum.photos/100/100")
     _name  = _ch.get("title", "Channel")
 
     st.markdown(
-        f'<div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);">'
-        f'<div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.03);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:8px 10px;">'
-        f'<img src="{_thumb}" style="width:32px;height:32px;border-radius:50%;border:1.5px solid #ff4d73;flex-shrink:0;object-fit:cover;">'
+        f'<div style="margin-top:28px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);">'
+        f'<div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.03);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.05);box-shadow:0 8px 30px rgba(0,0,0,0.25);border-radius:16px;padding:12px 14px;">'
+        f'<img src="{_thumb}" style="width:40px;height:40px;border-radius:50%;border:2px solid #ff4d73;flex-shrink:0;object-fit:cover;">'
         f'<div style="overflow:hidden;">'
-        f'<div style="font-weight:600;font-size:0.82rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{_name}</div>'
-        f'<div style="color:#4ade80;font-size:0.7rem;font-weight:600;display:flex;align-items:center;gap:4px;margin-top:1px;">'
-        f'<span style="width:5px;height:5px;background:#4ade80;border-radius:50%;display:inline-block;box-shadow:0 0 5px #4ade80;"></span> Connected'
+        f'<div style="font-weight:600;font-size:0.9rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{_name}</div>'
+        f'<div style="color:#4ade80;font-size:0.75rem;font-weight:600;display:flex;align-items:center;gap:5px;margin-top:2px;">'
+        f'<span style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block;box-shadow:0 0 6px #4ade80;"></span> Connected'
         f'</div></div></div></div>',
         unsafe_allow_html=True,
     )
