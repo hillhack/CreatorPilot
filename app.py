@@ -282,10 +282,18 @@ button[kind="primary"]:hover {
 }
 /* ── Custom HTML Sidebar Styling ── */
 section[data-testid="stSidebar"] {
-    width: 300px !important;
-    min-width: 300px !important;
     background: #0b0a0e !important;
     border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+section[data-testid="stSidebar"][aria-expanded="true"] {
+    width: 300px !important;
+    min-width: 300px !important;
+}
+
+section[data-testid="stSidebar"][aria-expanded="false"] {
+    width: 0px !important;
+    min-width: 0px !important;
 }
 
 section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
