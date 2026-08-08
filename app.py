@@ -305,38 +305,38 @@ section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
 .cp-nav-container {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    margin-top: 4px;
-    margin-bottom: 20px;
+    gap: 4px;
+    margin-top: 2px;
+    margin-bottom: 12px;
 }
 
 .cp-nav-item {
     display: flex !important;
     align-items: center !important;
-    gap: 16px !important;
-    padding: 15px 20px !important;
-    border-radius: 20px !important;
-    border-left: 6px solid transparent !important;
+    gap: 12px !important;
+    padding: 10px 14px !important;
+    border-radius: 12px !important;
+    border-left: 4px solid transparent !important;
     background: transparent !important;
     color: #9494a3 !important;
     text-decoration: none !important;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
     cursor: pointer !important;
     box-sizing: border-box !important;
 }
 
 .cp-nav-item span {
     font-family: 'Inter', sans-serif !important;
-    font-size: 1.05rem !important;
+    font-size: 0.9rem !important;
     font-weight: 500 !important;
     letter-spacing: 0.01em !important;
     color: #9494a3 !important;
-    transition: color 0.25s ease !important;
+    transition: color 0.2s ease !important;
 }
 
 .cp-nav-item svg {
     stroke: #9494a3 !important;
-    transition: stroke 0.25s ease !important;
+    transition: stroke 0.2s ease !important;
     flex-shrink: 0 !important;
 }
 
@@ -352,16 +352,16 @@ section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
     stroke: #ffffff !important;
 }
 
-/* Active State: glass card, 6px red indicator strip, white/pink text & SVG */
+/* Active State: compact glass card, 4px red indicator strip, white/pink text & SVG */
 .cp-nav-item.active {
     background: rgba(255, 255, 255, 0.06) !important;
     backdrop-filter: blur(18px) !important;
-    border-left: 6px solid #ff4d73 !important;
-    border-top-left-radius: 4px !important;
-    border-bottom-left-radius: 4px !important;
-    border-top-right-radius: 20px !important;
-    border-bottom-right-radius: 20px !important;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 8px 30px rgba(0, 0, 0, 0.25) !important;
+    border-left: 4px solid #ff4d73 !important;
+    border-top-left-radius: 3px !important;
+    border-bottom-left-radius: 3px !important;
+    border-top-right-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 4px 20px rgba(0, 0, 0, 0.2) !important;
 }
 
 .cp-nav-item.active span {
@@ -407,7 +407,7 @@ class _OAuthCallbackHandler(BaseHTTPRequestHandler):
                 html = (
                     b"<html><body style='font-family:sans-serif;text-align:center;background:#09090b;color:#fff;margin-top:120px;'>"
                     b"<h1 style='color:#4ade80;'>&#10003; YouTube Connected!</h1>"
-                    b"<p style='color:#a1a1aa;'>Redirecting you back to CreatorPilot...</p>"
+                    b"<p style='color:#a1a1aa;'>Redirecting you back to <span style='color:#ffffff;font-weight:600;'>Creator</span><span style='color:#ff4d73;font-weight:600;'>Pilot</span>...</p>"
                     b"<script>setTimeout(()=>window.close(),1500);</script>"
                     b"</body></html>"
                 )
@@ -501,12 +501,12 @@ def _sidebar_channel_info(is_auth: bool, is_mock: bool) -> dict:
     return {"title": "CreatorPilot Lab", "thumbnail": "https://picsum.photos/100/100"}
 
 def _render_sidebar_nav_html(current_page: str) -> str:
-    """Render custom HTML nav items with inline Lucide SVGs (cross-browser compatible)."""
+    """Render custom HTML nav items with inline Lucide SVGs (compact size)."""
     items = [
-        ("Dashboard", "Dashboard", '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'),
-        ("Analyse",   "Analyse",   '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>'),
-        ("Generate",  "Generate",  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z"/></svg>'),
-        ("Automate",  "Automate",  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71.79-1.81.2-2.55L4.5 16.5z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.05 11a22.35 22.35 0 0 1-3.95 2z"/></svg>'),
+        ("Dashboard", "Dashboard", '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'),
+        ("Analyse",   "Analyse",   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>'),
+        ("Generate",  "Generate",  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z"/></svg>'),
+        ("Automate",  "Automate",  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71.79-1.81.2-2.55L4.5 16.5z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.05 11a22.35 22.35 0 0 1-3.95 2z"/></svg>'),
     ]
     lines = ['<div class="cp-nav-container">']
     for key, label, svg_code in items:
@@ -517,15 +517,15 @@ def _render_sidebar_nav_html(current_page: str) -> str:
 
 # ── Sidebar Rendering ────────────────────────────────────────────────────────
 with st.sidebar:
-    # 1. Logo Header
+    # 1. Logo Header (Compact)
     st.markdown(
-        '<div style="display:flex;align-items:center;gap:12px;padding:8px 6px 20px 6px;margin-bottom:24px;border-bottom:1px solid rgba(255,255,255,0.06);">'
-        '<div style="width:36px;height:36px;background:linear-gradient(135deg,#ff4d73,#c0112c);border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(255,77,115,0.4);flex-shrink:0;">'
-        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'
+        '<div style="display:flex;align-items:center;gap:10px;padding:4px 4px 14px 4px;margin-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.06);">'
+        '<div style="width:30px;height:30px;background:linear-gradient(135deg,#ff4d73,#c0112c);border-radius:8px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(255,77,115,0.4);flex-shrink:0;">'
+        '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'
         '</div>'
         '<div>'
-        '<div style="font-size:1.45rem;font-weight:800;letter-spacing:-0.03em;line-height:1.1;color:#fff;">Creator<span style="color:#ff4d73;">Pilot</span></div>'
-        '<div style="color:#71717a;font-size:0.74rem;font-weight:500;margin-top:2px;">Studio &amp; AI Copilot</div>'
+        '<div style="font-size:1.2rem;font-weight:800;letter-spacing:-0.03em;line-height:1.1;color:#fff;">Creator<span style="color:#ff4d73;">Pilot</span></div>'
+        '<div style="color:#71717a;font-size:0.7rem;font-weight:500;margin-top:1px;">Studio &amp; AI Copilot</div>'
         '</div>'
         '</div>',
         unsafe_allow_html=True,
@@ -533,11 +533,11 @@ with st.sidebar:
 
     # 2. Navigation Header Label
     st.markdown(
-        '<div style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#71717a;margin-bottom:10px;padding-left:6px;">NAVIGATION</div>',
+        '<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#71717a;margin-bottom:6px;padding-left:4px;">NAVIGATION</div>',
         unsafe_allow_html=True,
     )
 
-    # 3. Render Custom HTML Navigation (Pure inline SVGs, pixel-perfect glass card, 6px red bar, cross-browser Firefox/Chrome)
+    # 3. Render Custom HTML Navigation
     st.markdown(_render_sidebar_nav_html(nav_option), unsafe_allow_html=True)
 
     # 4. Disconnect Button (if authenticated)
@@ -550,19 +550,19 @@ with st.sidebar:
             st.session_state.auth_url = None
             st.rerun()
 
-    # 5. Channel Card at Bottom
+    # 5. Channel Card at Bottom (Compact)
     _ch = _sidebar_channel_info(IS_AUTH, mock_mode)
     _thumb = _ch.get("thumbnail", "https://picsum.photos/100/100")
     _name  = _ch.get("title", "Channel")
 
     st.markdown(
-        f'<div style="margin-top:28px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);">'
-        f'<div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.03);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.05);box-shadow:0 8px 30px rgba(0,0,0,0.25);border-radius:16px;padding:12px 14px;">'
-        f'<img src="{_thumb}" style="width:40px;height:40px;border-radius:50%;border:2px solid #ff4d73;flex-shrink:0;object-fit:cover;">'
+        f'<div style="margin-top:16px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);">'
+        f'<div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.03);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.05);box-shadow:0 6px 20px rgba(0,0,0,0.2);border-radius:12px;padding:8px 10px;">'
+        f'<img src="{_thumb}" style="width:32px;height:32px;border-radius:50%;border:2px solid #ff4d73;flex-shrink:0;object-fit:cover;">'
         f'<div style="overflow:hidden;">'
-        f'<div style="font-weight:600;font-size:0.9rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{_name}</div>'
-        f'<div style="color:#4ade80;font-size:0.75rem;font-weight:600;display:flex;align-items:center;gap:5px;margin-top:2px;">'
-        f'<span style="width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block;box-shadow:0 0 6px #4ade80;"></span> Connected'
+        f'<div style="font-weight:600;font-size:0.82rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{_name}</div>'
+        f'<div style="color:#4ade80;font-size:0.7rem;font-weight:600;display:flex;align-items:center;gap:4px;margin-top:1px;">'
+        f'<span style="width:5px;height:5px;background:#4ade80;border-radius:50%;display:inline-block;box-shadow:0 0 5px #4ade80;"></span> Connected'
         f'</div></div></div></div>',
         unsafe_allow_html=True,
     )
@@ -574,7 +574,7 @@ with st.sidebar:
 st.markdown("""
 <div style="text-align: center; padding: 1.5rem 0 1rem 0;">
     <div class="hero-badge">Creator Studio</div>
-    <div class="hero-title" style="font-size:2.8rem;"><span style="color:#ffffff;">Creator</span><span style="color:#ff2e4c;">Pilot</span></div>
+    <div class="hero-title" style="font-size:2.8rem;"><span style="color:#ffffff;">Creator</span><span style="color:#ff4d73;">Pilot</span></div>
     <div class="hero-sub">AI Analytics • Content Generation • Direct Video Publishing</div>
 </div>
 """, unsafe_allow_html=True)
@@ -604,7 +604,7 @@ if not IS_AUTH and not mock_mode:
             )
             st.markdown(
                 "<p style='color:#a1a1aa;font-size:0.85rem;line-height:1.4;text-align:center;margin-bottom:0.75rem;'>"
-                "Authorize CreatorPilot once to access channel analytics, generate AI content scripts, and publish videos directly."
+                "Authorize <span style='color:#ffffff;font-weight:600;'>Creator</span><span style='color:#ff4d73;font-weight:600;'>Pilot</span> once to access channel analytics, generate AI content scripts, and publish videos directly."
                 "</p>",
                 unsafe_allow_html=True,
             )
@@ -1036,7 +1036,7 @@ elif nav_option == "Generate":
                 "<h4 style='font-weight:700;margin-bottom:0.3rem;'>Generate Viral Ideas</h4>",
                 unsafe_allow_html=True,
             )
-            st.caption("Gemini analyses your channel's description and uploaded video history to brainstorm tailored, high-CTR ideas.")
+            st.caption("Gemini analyses your channel's description and chosen video history to brainstorm tailored, high-CTR ideas.")
             st.write("")
 
             target_topic = st.text_input(
@@ -1046,28 +1046,62 @@ elif nav_option == "Generate":
                 key="ideas_target_topic_input",
             )
 
-            # Channel Context Preview Chip
-            _v_count = len(recent_videos) if recent_videos else 0
+            st.markdown("<div style='font-weight:600;font-size:0.88rem;margin-top:10px;margin-bottom:4px;'>🎬 Video History Context Source</div>", unsafe_allow_html=True)
+            hist_mode = st.radio(
+                "Video History Mode",
+                ["⏮ Recent N Videos", "🎯 Select Specific Videos"],
+                horizontal=True,
+                label_visibility="collapsed",
+                key="ideas_hist_mode",
+            )
+
+            selected_videos_for_ai = []
+            if hist_mode == "⏮ Recent N Videos":
+                _total_avail = len(recent_videos) if recent_videos else 10
+                n_past_vids = st.slider(
+                    "How many past videos to include as context?",
+                    min_value=1,
+                    max_value=max(_total_avail, 10),
+                    value=min(5, max(_total_avail, 1)),
+                    help="Gemini will analyze the most recent N videos from your channel history.",
+                )
+                selected_videos_for_ai = (recent_videos or [])[:n_past_vids]
+            else:
+                if recent_videos:
+                    video_titles_map = {f"{i+1}. {v.get('title', 'Untitled')}": v for i, v in enumerate(recent_videos)}
+                    chosen_titles = st.multiselect(
+                        "Pick specific videos to analyze for inspiration:",
+                        options=list(video_titles_map.keys()),
+                        default=list(video_titles_map.keys())[:min(3, len(video_titles_map))],
+                        help="Gemini will analyze the style, topic, and performance of these specific chosen videos.",
+                    )
+                    selected_videos_for_ai = [video_titles_map[t] for t in chosen_titles if t in video_titles_map]
+                else:
+                    st.info("No uploaded videos found in history.")
+                    selected_videos_for_ai = []
+
+            # Channel & Selected Videos Context Preview Chip
+            _selected_cnt = len(selected_videos_for_ai)
             st.markdown(
-                f'<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:8px 12px;font-size:0.78rem;color:#a1a1aa;margin-bottom:12px;">'
-                f'📺 <b>Analyzing Channel:</b> <span style="color:#fff;">{_ch_name}</span> &nbsp;|&nbsp; 🎬 <b>History:</b> <span style="color:#ff6680;">{_v_count} Past Videos Loaded</span>'
+                f'<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:8px 12px;font-size:0.78rem;color:#a1a1aa;margin-top:8px;margin-bottom:14px;">'
+                f'📺 <b>Analyzing Channel:</b> <span style="color:#fff;">{_ch_name}</span> &nbsp;|&nbsp; 🎬 <b>AI Context:</b> <span style="color:#ff6680;">{_selected_cnt} Videos Selected</span>'
                 f'</div>',
                 unsafe_allow_html=True,
             )
 
             c_num, c_btn = st.columns([2, 1])
             with c_num:
-                n_ideas = st.slider("Number of ideas", 3, 8, 5)
+                n_ideas = st.slider("Number of ideas to generate", 3, 8, 5)
             with c_btn:
                 st.write("")
                 run_ideas = st.button("Generate Ideas", type="primary", use_container_width=True)
 
             if run_ideas:
-                with st.spinner("Analyzing channel history & brainstorming with Gemini..."):
+                with st.spinner("Analyzing selected video history & brainstorming with Gemini..."):
                     try:
                         ideas = generate_video_ideas(
                             channel_info=channel_info,
-                            recent_videos=recent_videos,
+                            recent_videos=selected_videos_for_ai,
                             target_topic=target_topic,
                             n_ideas=n_ideas,
                         )
