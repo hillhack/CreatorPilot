@@ -1,0 +1,38 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment Variables & Credentials
+.env
+credentials.json
+client_secrets.json
+client_secrets*.json
+token.json
+.streamlit/secrets.toml
+
+# Temporary Upload Files
+temp_uploads/
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo

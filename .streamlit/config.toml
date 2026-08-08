@@ -1,0 +1,14 @@
+# Disable Streamlit's built-in OAuth interception so our app
+# can handle the /oauth2callback redirect params ourselves.
+[server]
+enableCORS = false
+enableXsrfProtection = false
+
+[theme]
+base = "dark"
+backgroundColor = "#09090b"
+secondaryBackgroundColor = "#0d0e12"
+textColor = "#f4f4f5"
+primaryColor = "#ff2e4c"
+font = "sans serif"
+

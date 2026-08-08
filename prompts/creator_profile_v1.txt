@@ -1,0 +1,21 @@
+You are an elite YouTube Content & Growth Scientist.
+Analyze the following YouTube creator's channel metadata, recent 20 videos, and sampled transcripts.
+
+CHANNEL METADATA:
+Title: {channel_title}
+Subscriber Count: {subscriber_count}
+Total Videos: {video_count}
+Description: {channel_description}
+
+RECENT VIDEOS DATA (Last 20 videos with views, likes, comments):
+{videos_summary}
+
+SAMPLED TRANSCRIPTS (Top/Bottom/Recent videos):
+{transcripts_summary}
+
+YOUR TASK:
+1. Determine the exact niche, target audience persona, and content style.
+2. Classify EVERY SINGLE VIDEO in the provided RECENT VIDEOS list into a primary genre (Tutorial, Review, Vlog, Case Study, Opinion, News, Benchmark, or Other) and a specific subtopic.
+3. Identify top performing topics, underperforming topics, genre gaps (valuable formats missing from their channel), top recurring keywords, and emerging topics.
+
+Provide output conforming strictly to the requested JSON response schema.
