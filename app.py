@@ -280,48 +280,72 @@ button[kind="primary"]:hover {
     box-shadow: 0 6px 24px rgba(255,46,76,0.5) !important;
     color: #ffffff !important;
 }
-/* ── Sidebar Navigation Buttons Styling ── */
+/* ── Custom HTML Sidebar Styling ── */
 section[data-testid="stSidebar"] {
+    width: 300px !important;
+    min-width: 300px !important;
     background: #0b0a0e !important;
     border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
 section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
-    padding-top: 24px !important;
-    padding-left: 14px !important;
-    padding-right: 14px !important;
+    padding-top: 28px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
 }
 
-div[data-testid="stSidebar"] div.stButton > button {
+.cp-nav-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 4px;
+    margin-bottom: 20px;
+}
+
+.cp-nav-item {
     display: flex !important;
     align-items: center !important;
-    justify-content: flex-start !important;
     gap: 16px !important;
-    padding: 16px 20px !important;
+    padding: 15px 20px !important;
     border-radius: 20px !important;
-    border: none !important;
     border-left: 6px solid transparent !important;
     background: transparent !important;
     color: #9494a3 !important;
+    text-decoration: none !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+}
+
+.cp-nav-item span {
+    font-family: 'Inter', sans-serif !important;
     font-size: 1.05rem !important;
     font-weight: 500 !important;
     letter-spacing: 0.01em !important;
-    width: 100% !important;
-    margin: 3px 0 !important;
-    text-align: left !important;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-shadow: none !important;
-    position: relative !important;
+    color: #9494a3 !important;
+    transition: color 0.25s ease !important;
 }
 
-div[data-testid="stSidebar"] div.stButton > button:hover {
+.cp-nav-item svg {
+    stroke: #9494a3 !important;
+    transition: stroke 0.25s ease !important;
+    flex-shrink: 0 !important;
+}
+
+.cp-nav-item:hover {
     background: rgba(255, 255, 255, 0.04) !important;
-    color: #ffffff !important;
-    transform: none !important;
 }
 
-/* Active Nav Button */
-div[data-testid="stSidebar"] div.stButton > button[kind="primary"] {
+.cp-nav-item:hover span {
+    color: #ffffff !important;
+}
+
+.cp-nav-item:hover svg {
+    stroke: #ffffff !important;
+}
+
+/* Active State: glass card, 6px red indicator strip, white/pink text & SVG */
+.cp-nav-item.active {
     background: rgba(255, 255, 255, 0.06) !important;
     backdrop-filter: blur(18px) !important;
     border-left: 6px solid #ff4d73 !important;
@@ -329,50 +353,16 @@ div[data-testid="stSidebar"] div.stButton > button[kind="primary"] {
     border-bottom-left-radius: 4px !important;
     border-top-right-radius: 20px !important;
     border-bottom-right-radius: 20px !important;
-    color: #ff4d73 !important;
-    font-weight: 600 !important;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 8px 30px rgba(0, 0, 0, 0.25) !important;
 }
 
-/* Vector SVG Icon injection for each button via ::before */
-div[data-testid="stSidebar"] div.stButton > button::before {
-    content: '' !important;
-    width: 22px !important;
-    height: 22px !important;
-    display: inline-block !important;
-    background-color: currentColor !important;
-    mask-size: contain !important;
-    mask-repeat: no-repeat !important;
-    mask-position: center !important;
-    -webkit-mask-size: contain !important;
-    -webkit-mask-repeat: no-repeat !important;
-    -webkit-mask-position: center !important;
-    flex-shrink: 0 !important;
-    transition: background-color 0.25s ease !important;
+.cp-nav-item.active span {
+    color: #ff4d73 !important;
+    font-weight: 600 !important;
 }
 
-/* 1. Dashboard — Home Icon */
-div[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div.stButton:nth-of-type(1) > button::before {
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpolyline points='9 22 9 12 15 12 15 22'/%3E%3C/svg%3E") !important;
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpolyline points='9 22 9 12 15 12 15 22'/%3E%3C/svg%3E") !important;
-}
-
-/* 2. Analyse — BarChart Icon */
-div[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div.stButton:nth-of-type(2) > button::before {
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='20' x2='18' y2='10'/%3E%3Cline x1='12' y1='20' x2='12' y2='4'/%3E%3Cline x1='6' y1='20' x2='6' y2='14'/%3E%3C/svg%3E") !important;
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='20' x2='18' y2='10'/%3E%3Cline x1='12' y1='20' x2='12' y2='4'/%3E%3Cline x1='6' y1='20' x2='6' y2='14'/%3E%3C/svg%3E") !important;
-}
-
-/* 3. Generate — Sparkles Icon */
-div[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div.stButton:nth-of-type(3) > button::before {
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z'/%3E%3C/svg%3E") !important;
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z'/%3E%3C/svg%3E") !important;
-}
-
-/* 4. Automate — Rocket Icon */
-div[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div.stButton:nth-of-type(4) > button::before {
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71.79-1.81.2-2.55L4.5 16.5z'/%3E%3Cpath d='M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.05 11a22.35 22.35 0 0 1-3.95 2z'/%3E%3C/svg%3E") !important;
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71.79-1.81.2-2.55L4.5 16.5z'/%3E%3Cpath d='M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.05 11a22.35 22.35 0 0 1-3.95 2z'/%3E%3C/svg%3E") !important;
+.cp-nav-item.active svg {
+    stroke: #ff4d73 !important;
 }
 
 /* Status pill */
@@ -481,10 +471,15 @@ if st.session_state.signing_in:
         st.rerun()
 
 
-# ── Sidebar Session State ─────────────────────────────────────────────────────
-st.session_state.setdefault("nav_option", "Dashboard")
+# ── Sidebar Session State & Query Param Sync ─────────────────────────────────
+nav_param = st.query_params.get("nav")
+if nav_param in ["Dashboard", "Analyse", "Generate", "Automate"]:
+    st.session_state["nav_option"] = nav_param
+else:
+    st.session_state.setdefault("nav_option", "Dashboard")
+
 nav_option = st.session_state["nav_option"]
-mock_mode = settings.mock_youtube_api
+mock_mode  = settings.mock_youtube_api
 
 @st.cache_data(ttl=120, show_spinner=False)
 def _sidebar_channel_info(is_auth: bool, is_mock: bool) -> dict:
@@ -496,6 +491,21 @@ def _sidebar_channel_info(is_auth: bool, is_mock: bool) -> dict:
         except Exception:
             pass
     return {"title": "CreatorPilot Lab", "thumbnail": "https://picsum.photos/100/100"}
+
+def _render_sidebar_nav_html(current_page: str) -> str:
+    """Render custom HTML nav items with inline Lucide SVGs (cross-browser compatible)."""
+    items = [
+        ("Dashboard", "Dashboard", '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'),
+        ("Analyse",   "Analyse",   '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>'),
+        ("Generate",  "Generate",  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z"/></svg>'),
+        ("Automate",  "Automate",  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71.79-1.81.2-2.55L4.5 16.5z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.05 11a22.35 22.35 0 0 1-3.95 2z"/></svg>'),
+    ]
+    lines = ['<div class="cp-nav-container">']
+    for key, label, svg_code in items:
+        active_cls = " active" if current_page == key else ""
+        lines.append(f'<a href="?nav={key}" target="_self" class="cp-nav-item{active_cls}">{svg_code}<span>{label}</span></a>')
+    lines.append('</div>')
+    return "".join(lines)
 
 # ── Sidebar Rendering ────────────────────────────────────────────────────────
 with st.sidebar:
@@ -515,21 +525,12 @@ with st.sidebar:
 
     # 2. Navigation Header Label
     st.markdown(
-        '<div style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#71717a;margin-bottom:12px;padding-left:8px;">NAVIGATION</div>',
+        '<div style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#71717a;margin-bottom:10px;padding-left:6px;">NAVIGATION</div>',
         unsafe_allow_html=True,
     )
 
-    # 3. Interactive Nav Buttons
-    for page in ["Dashboard", "Analyse", "Generate", "Automate"]:
-        is_active = (nav_option == page)
-        if st.button(
-            page,
-            key=f"sidebar_nav_{page}",
-            use_container_width=True,
-            type="primary" if is_active else "secondary",
-        ):
-            st.session_state["nav_option"] = page
-            st.rerun()
+    # 3. Render Custom HTML Navigation (Pure inline SVGs, pixel-perfect glass card, 6px red bar, cross-browser Firefox/Chrome)
+    st.markdown(_render_sidebar_nav_html(nav_option), unsafe_allow_html=True)
 
     # 4. Disconnect Button (if authenticated)
     if IS_AUTH:
@@ -1027,8 +1028,24 @@ elif nav_option == "Generate":
                 "<h4 style='font-weight:700;margin-bottom:0.3rem;'>Generate Viral Ideas</h4>",
                 unsafe_allow_html=True,
             )
-            st.caption("Gemini analyses your channel domain and recent topics to generate high-CTR concepts.")
+            st.caption("Gemini analyses your channel's description and uploaded video history to brainstorm tailored, high-CTR ideas.")
             st.write("")
+
+            target_topic = st.text_input(
+                "Target Topic / Niche Focus (Optional)",
+                placeholder="e.g. Cooking, Finance, Python Tutorials, Gaming Setup",
+                help="Leave empty to let Gemini automatically discover topics from your past videos.",
+                key="ideas_target_topic_input",
+            )
+
+            # Channel Context Preview Chip
+            _v_count = len(recent_videos) if recent_videos else 0
+            st.markdown(
+                f'<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:8px 12px;font-size:0.78rem;color:#a1a1aa;margin-bottom:12px;">'
+                f'📺 <b>Analyzing Channel:</b> <span style="color:#fff;">{_ch_name}</span> &nbsp;|&nbsp; 🎬 <b>History:</b> <span style="color:#ff6680;">{_v_count} Past Videos Loaded</span>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
 
             c_num, c_btn = st.columns([2, 1])
             with c_num:
@@ -1038,9 +1055,14 @@ elif nav_option == "Generate":
                 run_ideas = st.button("Generate Ideas", type="primary", use_container_width=True)
 
             if run_ideas:
-                with st.spinner("Brainstorming with Gemini..."):
+                with st.spinner("Analyzing channel history & brainstorming with Gemini..."):
                     try:
-                        ideas = generate_video_ideas(channel_info, recent_videos, n_ideas=n_ideas)
+                        ideas = generate_video_ideas(
+                            channel_info=channel_info,
+                            recent_videos=recent_videos,
+                            target_topic=target_topic,
+                            n_ideas=n_ideas,
+                        )
                         st.session_state["generated_ideas"] = ideas
                     except Exception as err:
                         st.error(format_error_one_liner(err, "Idea generation failed: "))

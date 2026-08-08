@@ -64,33 +64,106 @@ def _generate_with_retry(
     )
 
 
+def _build_dynamic_fallback_ideas(
+    channel_info: Dict[str, Any],
+    recent_videos: Optional[List[Dict[str, Any]]],
+    target_topic: str = "",
+    n_ideas: int = 5,
+) -> List[Dict[str, Any]]:
+    """Build dynamic fallback ideas using the channel's actual title, description, and past video history."""
+    ch_title = channel_info.get("title", "Creator Channel")
+    ch_desc  = channel_info.get("description", "")
+    video_titles = [v.get("title") for v in (recent_videos or []) if v.get("title")]
+
+    # Derive core topic from user input, recent video, channel title or description
+    if target_topic:
+        core_topic = target_topic.strip()
+    elif video_titles:
+        core_topic = video_titles[0]
+    elif ch_desc:
+        core_topic = ch_desc.split(".")[0][:40]
+    else:
+        core_topic = ch_title
+
+    t1 = video_titles[0] if len(video_titles) > 0 else core_topic
+    t2 = video_titles[1] if len(video_titles) > 1 else ch_title
+
+    templates = [
+        {
+            "title": f"The Complete Guide to {t1[:45]}",
+            "hook": f"Are you trying to master {t1[:30]}? In this video, we break down the top strategies and tools you need.",
+            "description": f"An in-depth breakdown and step-by-step walkthrough covering {t1[:50]}.",
+            "tags": [t.lower().replace(" ", "") for t in t1.split()[:4] if len(t) > 2] + ["guide", "tutorial"]
+        },
+        {
+            "title": f"5 Mistakes Every Creator Makes in {ch_title[:35]}",
+            "hook": f"Most creators in the {ch_title[:25]} space make these critical errors without realizing it. Here is how to fix them.",
+            "description": f"Essential breakdown of common mistakes and actionable solutions for {ch_title} creators.",
+            "tags": ["growth", "tips", "strategy", "creator"]
+        },
+        {
+            "title": f"What Nobody Tells You About {t2[:40]}",
+            "hook": "Behind-the-scenes insights that almost no one discusses publicly. Let me show you what really works.",
+            "description": f"Deep-dive analysis and key takeaways regarding {t2[:50]}.",
+            "tags": ["insights", "breakdown", "analysis", "review"]
+        },
+        {
+            "title": f"How to Level Up Your {core_topic[:35]} (Step-by-Step)",
+            "hook": "Want to get 10x better results? Follow this exact step-by-step framework.",
+            "description": f"Proven roadmap and actionable steps tailored for {core_topic[:40]}.",
+            "tags": ["tutorial", "stepbystep", "how_to", "mastery"]
+        },
+        {
+            "title": f"The Future of {core_topic[:35]}: What's Next?",
+            "hook": "Big changes are coming! Here is what you need to know to stay ahead of the curve.",
+            "description": f"Trends, predictions, and future outlook for {core_topic[:40]}.",
+            "tags": ["future", "trends", "predictions", "2026"]
+        }
+    ]
+    return templates[:n_ideas]
+
+
 def generate_video_ideas(
     channel_info: Dict[str, Any],
     recent_videos: Optional[List[Dict[str, Any]]] = None,
-    n_ideas: int = 5
+    target_topic: str = "",
+    n_ideas: int = 5,
+    **kwargs: Any,
 ) -> List[Dict[str, Any]]:
-    """Generate viral video ideas tailored to the channel's niche and audience history."""
+    """Generate viral video ideas strictly tailored to the channel's niche and audience history."""
     client = _get_client()
 
     channel_title = channel_info.get("title", "YouTube Channel")
-    channel_desc = channel_info.get("description", "")
-    video_titles = [v.get("title") for v in (recent_videos or []) if v.get("title")]
+    channel_desc  = channel_info.get("description", "")
+    video_titles  = [v.get("title") for v in (recent_videos or []) if v.get("title")]
+
+    history_str = "\n".join(f"  • {t}" for t in video_titles[:10]) if video_titles else "  • No uploaded videos found yet"
 
     prompt = f"""
-Act as a world-class YouTube Content Strategist and Growth Engineer.
-Generate {n_ideas} high-performing, high-CTR video ideas for the channel "{channel_title}".
+You are an expert YouTube Content Strategist & Channel Growth Engineer.
+Generate {n_ideas} high-performing, high-CTR video ideas strictly tailored to the specific niche, tone, and audience of this channel.
 
-Channel Context:
-- Description: {channel_desc}
-- Recent Videos: {", ".join(video_titles[:10]) if video_titles else "General Tech & Creator Content"}
+CHANNEL CONTEXT:
+- Channel Name: "{channel_title}"
+- Channel Description: "{channel_desc if channel_desc else 'N/A'}"
+- User Target Topic / Niche: "{target_topic if target_topic else 'Extract from past video history below'}"
+- Recent Video History ({len(video_titles)} videos):
+{history_str}
 
-Return JSON list of objects. Each object must have these exact keys:
-1. "title": Catchy, clickable title (under 60 chars)
-2. "hook": 2-sentence opening hook designed to boost retention
-3. "description": 2-sentence video description draft
-4. "tags": Array of 5-8 relevant tags
+CRITICAL INSTRUCTIONS:
+1. Ideas MUST be strictly relevant to the channel's actual domain and past video topics shown above. DO NOT suggest unrelated topics.
+2. Build upon successful themes from recent video titles while introducing fresh, high-CTR angles.
+3. Return ONLY a valid JSON list of objects matching this exact schema:
+[
+  {{
+    "title": "<Catchy, clickable title under 60 chars>",
+    "hook": "<2-sentence opening hook for high audience retention>",
+    "description": "<2-sentence video description>",
+    "tags": ["<tag1>", "<tag2>", "<tag3>", "<tag4>", "<tag5>"]
+  }}
+]
 
-Respond ONLY with valid JSON inside ```json``` codeblock.
+Respond ONLY with valid JSON inside a ```json code block.
 """
 
     try:
@@ -102,41 +175,13 @@ Respond ONLY with valid JSON inside ```json``` codeblock.
             text = text.split("```")[1].split("```")[0].strip()
 
         ideas = json.loads(text)
-        return ideas if isinstance(ideas, list) else []
+        if isinstance(ideas, list) and len(ideas) > 0:
+            return ideas
+        else:
+            return _build_dynamic_fallback_ideas(channel_info, recent_videos, target_topic, n_ideas)
     except Exception as err:
-        logger.warning("Gemini generation rate limited or failed (%s). Serving fallback ideas.", err)
-        return [
-            {
-                "title": "5 AI Automation Tools That Save 10 Hours a Week",
-                "hook": "Stop doing repetitive work manually! In this video, we cover 5 AI workflows that double your daily output.",
-                "description": "A comprehensive guide to automating content creation, research, and coding tasks with cutting-edge AI tools.",
-                "tags": ["ai", "automation", "productivity", "tech", "tutorial"]
-            },
-            {
-                "title": "Build Autonomous AI Agents in 15 Minutes",
-                "hook": "AI agents are replacing simple chatbots. Here is how you can deploy your own multi-agent system from scratch.",
-                "description": "Step-by-step tutorial on building and orchestrating autonomous AI coding agents.",
-                "tags": ["python", "ai_agents", "coding", "llm", "developers"]
-            },
-            {
-                "title": "Streamlit vs Next.js: The 2026 Developer Breakdown",
-                "hook": "Should you build your web app with Streamlit or Next.js? Let's compare speed, UI flexibility, and scaling.",
-                "description": "In-depth comparison of Python Streamlit vs React Next.js for rapid app development.",
-                "tags": ["streamlit", "nextjs", "python", "javascript", "webdev"]
-            },
-            {
-                "title": "Why Most YouTube Channels Fail (And How to Fix It)",
-                "hook": "90% of creators make the exact same 3 mistakes in their first 30 seconds. Here is the blueprint to fix them.",
-                "description": "Proven audience retention strategies and thumbnail optimization techniques for modern YouTube channels.",
-                "tags": ["youtube_tips", "creator_economy", "analytics", "growth"]
-            },
-            {
-                "title": "Zero to 100k Subscribers: The Proven Creator Playbook",
-                "hook": "Growing a YouTube channel isn't luck—it's a system. Here is the exact content formula used by top creators.",
-                "description": "Actionable channel positioning and content strategy guide for tech and developer creators.",
-                "tags": ["growth", "youtube", "creator", "strategy"]
-            }
-        ][:n_ideas]
+        logger.warning("Gemini generation rate limited or failed (%s). Serving dynamic channel fallback ideas.", err)
+        return _build_dynamic_fallback_ideas(channel_info, recent_videos, target_topic, n_ideas)
 
 
 def generate_video_script(
