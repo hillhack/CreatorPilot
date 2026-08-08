@@ -280,14 +280,25 @@ button[kind="primary"]:hover {
     box-shadow: 0 6px 24px rgba(255,46,76,0.5) !important;
     color: #ffffff !important;
 }
-/* ── Sidebar Nav — Hides Streamlit radio circles & displays clean menu items ── */
+/* ── Pixel-Perfect Sidebar Navigation ── */
+section[data-testid="stSidebar"] {
+    background: #0b0a0e !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
+    padding-top: 36px !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+}
+
 div[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] {
-    gap: 4px !important;
+    gap: 12px !important;
     display: flex !important;
     flex-direction: column !important;
 }
 
-/* Hide radio circle & input elements completely */
+/* Hide Streamlit default radio dots & inputs completely */
 div[data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-child,
 div[data-testid="stSidebar"] [data-testid="stRadio"] label input[type="radio"],
 div[data-testid="stSidebar"] [data-testid="stRadio"] label [data-baseweb="radio"] > div:first-child {
@@ -299,58 +310,118 @@ div[data-testid="stSidebar"] [data-testid="stRadio"] label [data-baseweb="radio"
     opacity: 0 !important;
 }
 
-/* Base item styling */
+/* Base Nav Item styling */
 div[data-testid="stSidebar"] [data-testid="stRadio"] label {
     display: flex !important;
     align-items: center !important;
-    padding: 10px 16px !important;
-    border-radius: 10px !important;
-    border: 1px solid transparent !important;
-    border-left: 4px solid transparent !important;
+    gap: 18px !important;
+    padding: 16px 22px !important;
+    border-radius: 20px !important;
+    border: none !important;
+    border-left: 6px solid transparent !important;
     background: transparent !important;
     cursor: pointer !important;
     width: 100% !important;
-    margin: 2px 0 !important;
-    transition: all 0.18s ease !important;
+    margin: 3px 0 !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
     box-sizing: border-box !important;
+    position: relative !important;
 }
 
+/* Text styling inside item */
 div[data-testid="stSidebar"] [data-testid="stRadio"] label [data-testid="stMarkdownContainer"] p,
 div[data-testid="stSidebar"] [data-testid="stRadio"] label p {
-    color: #9494a3 !important;
-    font-size: 0.94rem !important;
+    color: #d8d8d8 !important;
+    font-size: 1.05rem !important;
     font-weight: 500 !important;
     margin: 0 !important;
     line-height: 1.4 !important;
     letter-spacing: 0.01em !important;
-    transition: color 0.18s ease !important;
+    transition: color 0.25s ease, font-weight 0.25s ease !important;
+}
+
+/* SVG Vector Icon Container via ::before pseudo-element */
+div[data-testid="stSidebar"] [data-testid="stRadio"] label::before {
+    content: '' !important;
+    width: 22px !important;
+    height: 22px !important;
+    display: inline-block !important;
+    background-color: #d8d8d8 !important;
+    mask-size: contain !important;
+    mask-repeat: no-repeat !important;
+    mask-position: center !important;
+    -webkit-mask-size: contain !important;
+    -webkit-mask-repeat: no-repeat !important;
+    -webkit-mask-position: center !important;
+    flex-shrink: 0 !important;
+    transition: background-color 0.25s ease, transform 0.25s ease !important;
+}
+
+/* Lucide Vector Icons (Home, BarChart, Sparkles, Rocket) */
+
+/* 1. Dashboard — Home */
+div[data-testid="stSidebar"] [data-testid="stRadio"] label:nth-of-type(1)::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpolyline points='9 22 9 12 15 12 15 22'/%3E%3C/svg%3E") !important;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpolyline points='9 22 9 12 15 12 15 22'/%3E%3C/svg%3E") !important;
+}
+
+/* 2. Analyse — BarChart */
+div[data-testid="stSidebar"] [data-testid="stRadio"] label:nth-of-type(2)::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='20' x2='18' y2='10'/%3E%3Cline x1='12' y1='20' x2='12' y2='4'/%3E%3Cline x1='6' y1='20' x2='6' y2='14'/%3E%3C/svg%3E") !important;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='20' x2='18' y2='10'/%3E%3Cline x1='12' y1='20' x2='12' y2='4'/%3E%3Cline x1='6' y1='20' x2='6' y2='14'/%3E%3C/svg%3E") !important;
+}
+
+/* 3. Generate — Sparkles */
+div[data-testid="stSidebar"] [data-testid="stRadio"] label:nth-of-type(3)::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z'/%3E%3C/svg%3E") !important;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z'/%3E%3C/svg%3E") !important;
+}
+
+/* 4. Automate — Rocket */
+div[data-testid="stSidebar"] [data-testid="stRadio"] label:nth-of-type(4)::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71.79-1.81.2-2.55L4.5 16.5z'/%3E%3Cpath d='M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.05 11a22.35 22.35 0 0 1-3.95 2z'/%3E%3C/svg%3E") !important;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71.79-1.81.2-2.55L4.5 16.5z'/%3E%3Cpath d='M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.05 11a22.35 22.35 0 0 1-3.95 2z'/%3E%3C/svg%3E") !important;
 }
 
 /* Hover state */
 div[data-testid="stSidebar"] [data-testid="stRadio"] label:hover {
-    background: rgba(255, 46, 76, 0.06) !important;
-    border-left-color: rgba(255, 46, 76, 0.4) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
 }
 
 div[data-testid="stSidebar"] [data-testid="stRadio"] label:hover p {
-    color: #f4f4f5 !important;
+    color: #ffffff !important;
 }
 
-/* Active / Checked state */
+div[data-testid="stSidebar"] [data-testid="stRadio"] label:hover::before {
+    background-color: #ffffff !important;
+}
+
+/* Active / Checked state — 6px wide red strip, glass rounded card, pink red text & icon */
 div[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked),
 div[data-testid="stSidebar"] [data-testid="stRadio"] label[aria-checked="true"],
 div[data-testid="stSidebar"] [data-testid="stRadio"] label[data-checked="true"] {
-    background: rgba(255, 46, 76, 0.12) !important;
-    border-left: 4px solid #ff2e4c !important;
-    border-top-left-radius: 4px !important;
-    border-bottom-left-radius: 4px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(18px) !important;
+    border-left: 6px solid #ff4d73 !important;
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+    border-top-right-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 8px 30px rgba(0, 0, 0, 0.25) !important;
 }
 
 div[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) p,
 div[data-testid="stSidebar"] [data-testid="stRadio"] label[aria-checked="true"] p,
 div[data-testid="stSidebar"] [data-testid="stRadio"] label[data-checked="true"] p {
-    color: #ff4d66 !important;
-    font-weight: 700 !important;
+    color: #ff4d73 !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+}
+
+div[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked)::before,
+div[data-testid="stSidebar"] [data-testid="stRadio"] label[aria-checked="true"]::before,
+div[data-testid="stSidebar"] [data-testid="stRadio"] label[data-checked="true"]::before {
+    background-color: #ff4d73 !important;
 }
 
 /* Status pill */
@@ -461,30 +532,37 @@ if st.session_state.signing_in:
 with st.sidebar:
     st.markdown(
         """
-        <div style="padding-bottom: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 1rem;">
-            <h2 style="font-size: 1.65rem; font-weight: 800; letter-spacing: -0.03em; margin: 0; line-height: 1.1;">
-                <span style="color: #ffffff;">Creator</span><span style="color: #ff2e4c;">Pilot</span>
-            </h2>
-            <div style="color: #71717a; font-size: 0.75rem; font-weight: 500; margin-top: 4px;">YouTube Studio & AI Copilot</div>
+        <div style="padding-top: 10px; padding-bottom: 24px; margin-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <div style="width:36px; height:36px; background:linear-gradient(135deg, #ff4d73, #c0112c); border-radius:10px; display:flex; align-items:center; justify-content:center; box-shadow: 0 4px 14px rgba(255,77,115,0.4);">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <div>
+                    <h2 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.03em; margin: 0; line-height: 1.1;">
+                        <span style="color: #ffffff;">Creator</span><span style="color: #ff4d73;">Pilot</span>
+                    </h2>
+                    <div style="color: #71717a; font-size: 0.75rem; font-weight: 500; margin-top: 2px;">Studio & AI Copilot</div>
+                </div>
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        "<div style='font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#52525b; margin-bottom:6px; padding-left:4px;'>Navigation</div>",
+        "<div style='font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#71717a; margin-bottom:14px; padding-left:14px;'>NAVIGATION</div>",
         unsafe_allow_html=True,
     )
     nav_option = st.radio(
         "Navigation",
-        ["🏠 Dashboard", "📊 Analyse", "✨ Generate", "🚀 Automate"],
+        ["Dashboard", "Analyse", "Generate", "Automate"],
         label_visibility="collapsed",
     )
     mock_mode = settings.mock_youtube_api
 
     if IS_AUTH:
         st.write("")
-        if st.button("Disconnect Channel", use_container_width=True):
+        if st.button("↩ Disconnect Channel", use_container_width=True):
             if os.path.exists(settings.token_file):
                 os.remove(settings.token_file)
             st.session_state.signing_in = False
@@ -511,13 +589,13 @@ with st.sidebar:
     _name  = _ch.get("title", "Channel")
 
     st.markdown(
-        f'<div style="margin-top: 1.2rem; padding-top: 0.8rem; border-top: 1px solid rgba(255,255,255,0.07);">'
-        f'<div style="display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:8px 12px;">'
-        f'<img src="{_thumb}" style="width:36px; height:36px; border-radius:50%; border:1.5px solid rgba(255,46,76,0.5); flex-shrink:0;">'
+        f'<div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06);">'
+        f'<div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.03); backdrop-filter:blur(18px); border:1px solid rgba(255,255,255,0.05); box-shadow:0 8px 30px rgba(0,0,0,0.25); border-radius:16px; padding:12px 14px;">'
+        f'<img src="{_thumb}" style="width:40px; height:40px; border-radius:50%; border:2px solid #ff4d73; flex-shrink:0; object-fit:cover;">'
         f'<div style="overflow:hidden;">'
-        f'<div style="font-weight:600; font-size:0.88rem; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{_name}</div>'
-        f'<div style="color:#4ade80; font-size:0.72rem; font-weight:600; display:flex; align-items:center; gap:4px;">'
-        f'<span style="width:6px; height:6px; background:#4ade80; border-radius:50%; display:inline-block;"></span> Connected'
+        f'<div style="font-weight:600; font-size:0.9rem; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{_name}</div>'
+        f'<div style="color:#4ade80; font-size:0.75rem; font-weight:600; display:flex; align-items:center; gap:5px; margin-top:2px;">'
+        f'<span style="width:6px; height:6px; background:#4ade80; border-radius:50%; display:inline-block; box-shadow:0 0 6px #4ade80;"></span> Connected'
         f'</div></div></div></div>',
         unsafe_allow_html=True,
     )
@@ -650,7 +728,7 @@ recent_videos: list = st.session_state.get("recent_videos") or _MOCK_VIDEOS
 # =============================================================================
 # DASHBOARD
 # =============================================================================
-if nav_option == "🏠 Dashboard":
+if nav_option in ("🏠 Dashboard", "Dashboard"):
 
     # ── Channel Profile Banner ─────────────────────────────────────────────
     with st.container(border=True):
@@ -771,7 +849,7 @@ if nav_option == "🏠 Dashboard":
 # =============================================================================
 # ANALYSE
 # =============================================================================
-elif nav_option == "📊 Analyse":
+elif nav_option in ("📊 Analyse", "Analyse"):
 
     # Metrics row
     am1, am2, am3, am4 = st.columns(4)
@@ -974,7 +1052,7 @@ elif nav_option == "📊 Analyse":
 # =============================================================================
 # GENERATE
 # =============================================================================
-elif nav_option == "✨ Generate":
+elif nav_option in ("✨ Generate", "Generate"):
     gen_mode = st.radio(
         "Tool Mode",
         ["💡 Viral Video Ideas", "📝 Full Script Writer"],
@@ -1064,7 +1142,7 @@ elif nav_option == "✨ Generate":
 # =============================================================================
 # AUTOMATE
 # =============================================================================
-elif nav_option == "🚀 Automate":
+elif nav_option in ("🚀 Automate", "Automate"):
     MIME_MAP = {
         ".mp4": "video/mp4",
         ".mov": "video/quicktime",
